@@ -36,15 +36,15 @@ exports.obtenerUsuario = async (req, res) => {
         const user = await User.findOne({email : email})
 
         if(!user){
-            return res.status(404).send("El usuario no existe")
+            return res.status(404).json({val: false ,msg: "El email no existe!"})
         }
 
         const validPassword = await user.validatePassword(password)
         if(!validPassword){
-            return res.status(404).json({val: false})
+            return res.status(404).json({val: false ,msg: "La constraseña es incorrecta."})
         }
 
-        res.json({val: true})
+        res.json({val: true ,msg: "Bienvenido"})
     }
     catch(error){
         console.log(error)
